@@ -15,8 +15,10 @@ public class FutureValueCalculator {
 
     public static void userInformation() {
         System.out.println("Please enter your name: ");
-        name = scanner.nextLine();
-        System.out.println("Hello " + name + ", Welcome to the Future Value calculator");
+        name = scanner.nextLine().trim();
+        String newName = name.substring(0, 5);
+//        System.out.println("Your name is " + newName.indexOf(name.charAt(0)));
+        System.out.println("Hello " + newName + ", Welcome to the Future Value calculator");
         System.out.println("Please enter your deposit amount: $");
         depositAmount = scanner.nextInt();
         System.out.println("Please enter your interest rate: ");
