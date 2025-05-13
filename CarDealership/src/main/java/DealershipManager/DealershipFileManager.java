@@ -3,10 +3,8 @@ package DealershipManager;
 import Dealership.Dealership;
 import Vehicle.Vehicle;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
+import java.util.ArrayList;
 
 public class DealershipFileManager {
     String path = "data\\inventory.csv";
@@ -61,6 +59,26 @@ public class DealershipFileManager {
         return dealership;
     }
     public void saveDealership(Dealership dealership){
+//    checking if dealership is null
+        if (dealership == null){
+            System.out.println("Dealership is empty");
+            return;
+        }
+        try {
+//            Writing dealership in file
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path, false));
+            writer.write(String.format("%s|%s|%s|%n", dealership.getName(), dealership.getPhone(), dealership.getAddress()));
+//            adding vehicles in file
+            ArrayList<Vehicle> vehicles = dealership.getAllVehicles();
+            if (vehicles != null && !vehicles.isEmpty()){
+                for (Vehicle vehicle : vehicles){
+                    writer.write(String.format("%d|%d|%s|%s|%s|%s|%d|%.2f%n%n", vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice()));
+                }
+            }
+            System.out.println("Dealership data saved");
 
+        } catch (IOException e) {
+            System.out.println("Invalid program" + e.getMessage());
+        }
     }
 }
