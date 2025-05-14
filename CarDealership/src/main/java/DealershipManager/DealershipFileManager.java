@@ -66,7 +66,7 @@ public class DealershipFileManager {
         }
         try {
 //            Writing dealership in file
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path, false));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
             writer.write(String.format("%s|%s|%s|%n", dealership.getName(), dealership.getPhone(), dealership.getAddress()));
 //            adding vehicles in file
             ArrayList<Vehicle> vehicles = dealership.getAllVehicles();
@@ -76,6 +76,8 @@ public class DealershipFileManager {
                 }
             }
             System.out.println("Dealership data saved");
+            writer.close();
+
 
         } catch (IOException e) {
             System.out.println("Invalid program" + e.getMessage());
