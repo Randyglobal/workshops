@@ -1,62 +1,88 @@
 package com.pluralsight.model;
 
-import DealershipManager.Contract;
-
 public class SalesContract extends Contract {
     private double salesTaxAmount;
     private double recordingFee;
     private double processingFee;
     private boolean financed;
     private double monthlyPayment;
+    private double vehiclePrice;
 
-    public SalesContract(String date, String customerName, String customerAddress, String vehicleSold, double salesTaxAmount, double recordingFee, double processingFee, boolean financed, double monthlyPayment) {
+    public SalesContract(String date, String customerName, String customerAddress, String vehicleSold,
+                         double salesTaxAmount, double recordingFee, double processingFee,
+                         boolean financed, double monthlyPayment, double vehiclePrice) {
         super(date, customerName, customerAddress, vehicleSold);
         this.salesTaxAmount = salesTaxAmount;
         this.recordingFee = recordingFee;
         this.processingFee = processingFee;
         this.financed = financed;
         this.monthlyPayment = monthlyPayment;
-
+        this.vehiclePrice = vehiclePrice;
     }
 
     public double getSalesTaxAmount() {
         return salesTaxAmount;
     }
 
+    public void setSalesTaxAmount(double salesTaxAmount) {
+        this.salesTaxAmount = salesTaxAmount;
+    }
+
     public double getRecordingFee() {
         return recordingFee;
+    }
+
+    public void setRecordingFee(double recordingFee) {
+        this.recordingFee = recordingFee;
     }
 
     public double getProcessingFee() {
         return processingFee;
     }
 
+    public void setProcessingFee(double processingFee) {
+        this.processingFee = processingFee;
+    }
+
     public boolean isFinanced() {
         return financed;
+    }
+
+    public void setFinanced(boolean financed) {
+        this.financed = financed;
+        this.monthlyPayment = calculateMonthlyPayment();
     }
 
     public double getMonthlyPayment() {
         return monthlyPayment;
     }
 
+    public void setMonthlyPayment(double monthlyPayment) {
+        this.monthlyPayment = monthlyPayment;
+    }
+
+    public double getVehiclePrice() {
+        return vehiclePrice;
+    }
+
+    public void setVehiclePrice(double vehiclePrice) {
+        this.vehiclePrice = vehiclePrice;
+    }
+
+    @Override
+    public double getTotalPrice() {
+        return vehiclePrice + salesTaxAmount + recordingFee + processingFee;
+    }
+
     private double calculateMonthlyPayment() {
         if (!financed) {
             return 0.0;
         }
-
-
         double principal = getTotalPrice();
-        if (vehicleSold < 10000) {
-            this.processingFee = 295.00;
-        } else {
-            this.processingFee = 495.00;
-        }
-        this.monthlyPayment = calculateMonthlyPayment();
-
-
         double monthlyInterestRate;
         int numberOfMonths;
-        if (vehicleSold.getPrice() >= 10000) {
+
+        if (vehiclePrice >= 10000) {
             monthlyInterestRate = 0.0425 / 12;
             numberOfMonths = 48;
         } else {
@@ -64,17 +90,8 @@ public class SalesContract extends Contract {
             numberOfMonths = 24;
         }
 
-        if (monthlyInterestRate == 0) {
-            return 0;
-        }
+        double numerator = principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfMonths);
+        double denominator = Math.pow(1 + monthlyInterestRate, numberOfMonths) - 1;
+        return numerator / denominator;
     }
-
-    @Override
-    public double getTotalPrice() {
-        return vehicleSold.getPrice() + salesTaxAmount + recordingFee + processingFee;
-    }
-
-
-
-
 }
