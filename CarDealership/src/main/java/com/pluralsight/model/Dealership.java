@@ -1,6 +1,4 @@
-package Dealership;
-
-import Vehicle.Vehicle;
+package com.pluralsight.model;
 
 import java.util.ArrayList;
 import java.util.List;

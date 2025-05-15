@@ -1,4 +1,4 @@
-package DealershipManager;
+package com.pluralsight.model;
 
 public abstract class Contract {
     private String date;

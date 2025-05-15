@@ -1,7 +1,7 @@
-package DealershipManager;
+package com.pluralsight.data;
 
-import Dealership.Dealership;
-import Vehicle.Vehicle;
+import com.pluralsight.model.Dealership;
+import com.pluralsight.model.Vehicle;
 
 import java.io.*;
 import java.util.ArrayList;
