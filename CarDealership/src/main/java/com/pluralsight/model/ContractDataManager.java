@@ -8,7 +8,9 @@ public class ContractDataManager {
     public void saveContract(Contract contract) {
         System.out.println("Saving contract... " + contract);
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("contracts.txt", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("contracts.csv", true))) {
+            writer.write("Contract Type: " + contract.getClass().getSimpleName());
+            writer.newLine();
             if (contract instanceof SalesContract salesContract) {
                 writer.write("Sales Contract:");
                 writer.newLine();
