@@ -1,9 +1,9 @@
-package DealershipManager;
+package com.pluralsight.ui;
 
-import Dealership.Dealership;
-import Vehicle.Vehicle;
+import com.pluralsight.model.Dealership;
+import com.pluralsight.model.Vehicle;
+import com.pluralsight.data.DealershipFileManager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
