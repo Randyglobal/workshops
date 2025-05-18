@@ -1,5 +1,8 @@
 package com.pluralsight.ui;
 
+import com.pluralsight.model.Contract;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminUserInterface {
@@ -35,6 +38,7 @@ public class AdminUserInterface {
             scanner.nextLine();
             switch (choice) {
                 case 1:
+                    listAllContracts();
                     break;
                 case 2:
                     break;
@@ -46,6 +50,17 @@ public class AdminUserInterface {
                     println("Exiting ");
             }
         }
+        }
+    }
+    public void listAllContracts(){
+        ArrayList<Contract> contracts = new ArrayList<>();
+        if (contracts.isEmpty()){
+            println("No information found");
+        }else {
+            println("\nAll Contracts");
+        }
+        for (Contract contract : contracts){
+            println(" " + contract);
         }
     }
 }

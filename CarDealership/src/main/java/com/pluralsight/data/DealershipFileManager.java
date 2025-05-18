@@ -19,10 +19,6 @@ public class DealershipFileManager {
                 String[] dealershipDeatils = line.split("\\|");
                 if (dealershipDeatils.length == 3){
                     dealership = new Dealership(dealershipDeatils[0], dealershipDeatils[1], dealershipDeatils[2]);
-                    String name = dealership.getName();
-                    String address = dealership.getAddress();
-                    String phone = dealership.getPhone();
-//                    System.out.printf("%s|%s|%s|%.2f%n", name, address, phone);
 
                 }else{
                     System.out.println("Invalid line1");
@@ -45,6 +41,8 @@ public class DealershipFileManager {
                         String color = vehicleDetails[5].trim();
                         int odometer = Integer.parseInt(vehicleDetails[6].trim());
                         double price = Double.parseDouble(vehicleDetails[7].trim());
+                        Vehicle vehicle = new Vehicle(vin, year, mark, model, vehicleType, color, odometer, price);
+                        dealership.addVehicle(vehicle);
                         System.out.printf("%d|%d|%s|%s|%s|%s|%d|%.2f%n%n", vin, year, mark, model, vehicleType, color, odometer, price);
                     } catch (Exception e) {
                         System.out.println("Invalid line3");
@@ -66,19 +64,21 @@ public class DealershipFileManager {
         }
         try {
 //            Writing dealership in file
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-            writer.write(String.format("%s|%s|%s|%n", dealership.getName(), dealership.getPhone(), dealership.getAddress()));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path, true));
+            File file = new File(path);
+            // Check if the file is empty (or doesn't exist) and write dealership info if so
+            if (!file.exists() || file.length() == 0) {
+                writer.write(String.format("%s|%s|%s%n", dealership.getName(), dealership.getPhone(), dealership.getAddress()));
+            }
 //            adding vehicles in file
             ArrayList<Vehicle> vehicles = dealership.getAllVehicles();
             if (vehicles != null && !vehicles.isEmpty()){
                 for (Vehicle vehicle : vehicles){
-                    writer.write(String.format("%d|%d|%s|%s|%s|%s|%d|%.2f%n%n", vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice()));
+                    writer.write(String.format("%d|%d|%s|%s|%s|%s|%d|%.2f%n", vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice()));
                 }
             }
             System.out.println("Dealership data saved");
             writer.close();
-
-
         } catch (IOException e) {
             System.out.println("Invalid program" + e.getMessage());
         }

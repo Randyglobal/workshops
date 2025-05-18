@@ -1,5 +1,7 @@
 package com.pluralsight.model;
 
+import java.time.LocalDateTime;
+
 public class SalesContract extends Contract {
     private double salesTaxAmount;
     private double recordingFee;
@@ -8,7 +10,7 @@ public class SalesContract extends Contract {
     private double monthlyPayment;
     private double vehiclePrice;
 
-    public SalesContract(String date, String customerName, String customerAddress, String vehicleSold,
+    public SalesContract(LocalDateTime date, String customerName, String customerAddress, Vehicle vehicleSold,
                          double salesTaxAmount, double recordingFee, double processingFee,
                          boolean financed, double monthlyPayment, double vehiclePrice) {
         super(date, customerName, customerAddress, vehicleSold);

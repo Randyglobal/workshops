@@ -1,23 +1,25 @@
 package com.pluralsight.model;
 
+import java.time.LocalDateTime;
+
 public abstract class Contract {
-    private String date;
+    private LocalDateTime date;
     private String customerName;
     private String customerAddress;
-    private String vehicleSold;
+    private Vehicle vehicleSold;
 
-    public Contract(String date, String customerName, String customerAddress, String vehicleSold) {
+    public Contract(LocalDateTime date, String customerName, String customerAddress, Vehicle vehicleSold) {
         this.date = date;
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.vehicleSold = vehicleSold;
     }
 
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -37,11 +39,11 @@ public abstract class Contract {
         this.customerAddress = customerAddress;
     }
 
-    public String getVehicleSold() {
+    public Vehicle getVehicleSold() {
         return vehicleSold;
     }
 
-    public void setVehicleSold(String vehicleSold) {
+    public void setVehicleSold( Vehicle vehicleSold) {
         this.vehicleSold = vehicleSold;
     }
 
