@@ -1,5 +1,7 @@
 package com.pluralsight.model;
 
+import java.time.LocalDateTime;
+
 public class LeaseContract extends Contract{
 
     private double leaseFee;
@@ -10,7 +12,7 @@ public class LeaseContract extends Contract{
     private int leaseMonthTerm = 36;
 
 
-    public LeaseContract(String date, String customerName, String customerAddress, String vehicleSold, double leaseFee, double monthlyPayment, double endingValue, double originalPrice) {
+    public LeaseContract(LocalDateTime date, String customerName, String customerAddress, Vehicle vehicleSold, double leaseFee, double monthlyPayment, double endingValue, double originalPrice) {
         super(date, customerName, customerAddress, vehicleSold);
         this.leaseFee = originalPrice * 0.07;
         this.monthlyPayment = TotalMonthlyPayment();

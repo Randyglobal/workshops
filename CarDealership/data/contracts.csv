@@ -1,0 +1,36 @@
+SALE|20210928|Dana Wyatt|dana@texas.com|10112|1993|Ford|Explorer|SUV|Red|525123|995.00|49.75|100.00|295.00|1439.75|NO|0.00
+LEASE|20210928|Zachary Westly|zach@texas.com|37846|2021|Chevrolet|Silverado|truck|Black|2750|31995.00|15997.50|2239.65|18337.15|541.39
+Contract Type: SalesContract
+2025-05-18|Randy Imbia|10416 springs ln|[]|550.00|4550.00|1010.00|false|0.00|10000.00|
+
+
+Contract Type: LeaseContract
+2025-05-18|King Baly|15987 Randolph rd|[com.pluralsight.model.Vehicle@20ad9418]|700.00|0.00|500.00|10000.00|
+
+
+Contract Type: LeaseContract
+2025-05-18|Kingola|4755 tophers rd|[com.pluralsight.model.Vehicle@20ad9418]|560.00|0.00|400.00|8000.00|
+
+
+Contract Type: LeaseContract
+2025-05-18|Randy Imbia|14575 TomSlot rd|com.pluralsight.model.Vehicle@7c3df479|560.00|0.00|400.00|8000.00|
+
+
+Contract Type: SalesContract
+2025-05-18|Kingdam|44646 blill dr|com.pluralsight.model.Vehicle@7c3df479|250.00|1320.00|1000.00|false|0.00|8000.00|
+
+
+Contract Type: LeaseContract
+2025-05-18|Funana|15445 dr|com.pluralsight.model.Vehicle@7c3df479|630.00|0.00|450.00|9000.00|
+
+
+Contract Type: LeaseContract
+Contract Type: LeaseContract
+Contract Type: LeaseContract
+2025-05-18|Randy Imbia|15465 kendall dr|6456|Honda|Accord|560.00|0.00|400.00|8000.00|
+
+
+Contract Type: SalesContract
+Contract Type: SalesContract
+2025-05-18|Randy Imbia|15446 kings rd|4664|Toyota|Corolla|500.00|1200.00|1500.00|true|0.00|9000.00|
+

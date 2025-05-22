@@ -1,0 +1,1 @@
+[Books{title='The Lion King', author='Randy Imbia', serialNumber='HU267', availability=true}, Books{title='The Blue Lagoon', author='camille Ingram', serialNumber='RT238', availability=false}, Books{title='Java Intro', author='Craig Mc', serialNumber='UIR787', availability=false}][Books{title='Java Project', author='King Kong', serialNumber='IU261', availability=true}]

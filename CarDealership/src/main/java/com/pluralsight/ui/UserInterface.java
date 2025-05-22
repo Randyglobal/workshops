@@ -1,9 +1,13 @@
 package com.pluralsight.ui;
 
+import com.pluralsight.data.ContractDataManager;
 import com.pluralsight.model.Dealership;
+import com.pluralsight.model.LeaseContract;
+import com.pluralsight.model.SalesContract;
 import com.pluralsight.model.Vehicle;
 import com.pluralsight.data.DealershipFileManager;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,6 +15,8 @@ public class UserInterface {
     static  Scanner scanner = new Scanner(System.in);
     static  boolean userDisplay = true;
     private Dealership dealership;
+    private ContractDataManager contractDataManager;
+    public static AdminUserInterface admin = new AdminUserInterface();
 
 //    private void init(){
 //        DealershipFileManager dealershipFileManager = new DealershipFileManager();
@@ -20,6 +26,7 @@ public class UserInterface {
     public UserInterface(){
         DealershipFileManager dealershipFileManager = new DealershipFileManager();
         dealership = dealershipFileManager.getDealership();
+        contractDataManager = new ContractDataManager();
 
         if (dealership == null){
             dealership = new Dealership("D & B Used Cars", "111 Old Benbrook Rd", "817-555-5555");
@@ -41,7 +48,9 @@ public class UserInterface {
             displayMessage("7) - All Vehicles");
             displayMessage("8) - Add Vehicle");
             displayMessage("9) - Remove Vehicle");
-            displayMessage("10) - Exit");
+            displayMessage("10) - SELL/LEASE Vehicle");
+            displayMessage("11) - Login as Admin");
+            displayMessage("12) - Exit");
             displayMessage("Command: ");
             int command = scanner.nextInt();
             scanner.nextLine();
@@ -73,6 +82,13 @@ public class UserInterface {
                     processRemoveVehicleByVin();
                     break;
                 case 10:
+                    processCreateContractRequest();
+                    break;
+                case 11:
+                    admin.display();
+                    displayMessage("Admin Login");
+                    break;
+                case 12:
                     displayMessage("Exiting.......");
                     return;
             }
@@ -155,6 +171,84 @@ public class UserInterface {
         displayVehicles(vehicles);
     }
 
+//    Adding sales and lease vehicles
+    private void processCreateContractRequest(){
+        DealershipFileManager dealershipFileManager = new DealershipFileManager();
+        displayMessage("Enter vehicle VIN  for contract");
+        int vin = scanner.nextInt();
+        scanner.nextLine();
+
+        List<Vehicle> vehicleList = dealership.getVehicleByVin(vin);
+        Vehicle vehicleToContract = null;
+        if (vehicleList != null && !vehicleList.isEmpty()){
+            vehicleToContract = vehicleList.get(0);
+        }
+        if (vehicleToContract == null){
+            displayMessage("Vehicle with vin " + vin + " not found");
+            return;
+        }
+
+        displayMessage("Is this a (1) Sales Contract or (2) Lease Contract?");
+        int contractType = scanner.nextInt();
+        scanner.nextLine();
+        if (contractType != 1 && contractType != 2){
+            displayMessage("Wrong entry");
+            return;
+        }
+        displayMessage("Enter Customer's Name: ");
+        String name = scanner.nextLine();
+        displayMessage("Enter Customer's Address: ");
+        String address = scanner.nextLine();
+        LocalDate currentDate = LocalDate.now();
+        if (contractType == 1){
+            displayMessage("Enter Sales Tax Amount");
+            double salesTaxAmount = scanner.nextDouble();
+            scanner.nextLine();
+            displayMessage("Enter Recording Fee");
+            double recordFee = scanner.nextDouble();
+            scanner.nextLine();
+            displayMessage("Enter Processing Fee");
+            double processFee = scanner.nextDouble();
+            scanner.nextLine();
+            displayMessage("Is the vehicle Financed? (True/False)");
+            boolean isFinanced = scanner.nextBoolean();
+            scanner.nextLine();
+            double monthlyPayment = 0;
+            if (isFinanced){
+                displayMessage("Enter Monthly Payment: ");
+                double payment = scanner.nextDouble();
+                scanner.nextLine();
+            }
+            displayMessage("Enter Vehicle Price");
+            double vehiclePrice = scanner.nextDouble();
+            scanner.nextLine();
+
+            SalesContract salesContract = new SalesContract(currentDate.atStartOfDay(), name, address, vehicleToContract, salesTaxAmount, recordFee, processFee, isFinanced, monthlyPayment, vehiclePrice);
+            contractDataManager.saveContract(salesContract);
+//            dealership.removeVehicle(vin);
+//            dealershipFileManager.saveDealership(dealership);
+            displayMessage("Sales Contract saved by vin " + vin);
+        }
+        if (contractType == 2) {
+            displayMessage("Enter Lease Fee");
+            double leaseFee = scanner.nextDouble();
+            scanner.nextLine();
+            displayMessage("Enter Monthly Payment");
+            double monthlyPayment = scanner.nextDouble();
+            displayMessage("Enter Ending Value");
+            double endingValue = scanner.nextDouble();
+            scanner.nextLine();
+            displayMessage("Enter Original Price");
+            double originalPrice = scanner.nextDouble();
+            scanner.nextLine();
+
+            LeaseContract leaseContract = new LeaseContract(currentDate.atStartOfDay(), name, address, vehicleToContract, leaseFee, monthlyPayment, endingValue, originalPrice);
+//            dealership.removeVehicle(vin);
+            contractDataManager.saveContract(leaseContract);
+//            dealershipFileManager.saveDealership(dealership);
+            displayMessage("Lease Contract saved by vin " + vin);
+        }
+    }
     private void displayVehicles(List<Vehicle> vehicles){
        if (vehicles == null || vehicles.isEmpty()){
            System.out.println("No vehicles available");
