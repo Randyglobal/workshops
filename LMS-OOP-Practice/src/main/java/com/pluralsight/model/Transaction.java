@@ -49,7 +49,7 @@ public class Transaction {
         this.returnDate = returnDate;
     }
 
-    public boolean isOverdure(LocalDate currentDate){
+    public boolean isOverdue(LocalDate currentDate){
        if (returnDate == null){
            return currentDate.isAfter(dueDate);
        }else{

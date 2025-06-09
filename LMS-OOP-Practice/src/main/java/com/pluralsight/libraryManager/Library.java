@@ -138,5 +138,25 @@ public class Library implements Searchable {
          return  "Transaction Successfully Updated";
     }
 
+    public String returnedItem(int memberId, int itemId){
+        LibraryItems item = itemsMap.get(itemId);
+        LibraryMember member = memberMap.get(memberId);
+
+        if (member == null){
+            return "System Error: Member does not exist";
+        }
+        if (item == null){
+            return "System Error: Item does not exist";
+        }
+
+        boolean memberHasItem = member.getBorrowedItems().contains(item);
+        if (!memberHasItem){
+            return "System Error: Member with name" + member.getName() + " Did not borrow";
+        }
+        item.returnItem();
+        member.removeItem(item);
+        return "returned Item";
+    }
+
 
 }
