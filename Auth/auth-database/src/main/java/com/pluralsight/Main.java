@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import com.pluralsight.config.DbConfig;
 import com.pluralsight.ui.Login;
 import com.pluralsight.ui.Register;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -20,9 +21,9 @@ public class Main {
         String password = args[1];
 
         BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl("jdbc:mysql://localhost:3306/auth");
-        basicDataSource.setUsername(username);
-        basicDataSource.setPassword(password);
+        basicDataSource.setUrl(DbConfig.getDbUrl());
+        basicDataSource.setUsername(DbConfig.getDbUsername());
+        basicDataSource.setPassword(DbConfig.getDbPassword());
 
         displayHomeScreen(basicDataSource);
 
@@ -104,7 +105,7 @@ public class Main {
                     Register.displayRegisterScreen(basicDataSource);
                     break;
                 case 3:
-                    request = false; 
+                    request = false;
                     displayCenteredMessage("Goodbye!");
                     break;
                 default:

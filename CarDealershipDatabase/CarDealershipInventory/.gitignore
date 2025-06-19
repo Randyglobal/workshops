@@ -36,5 +36,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-# Configuration files with sensitive information
-src/main/resources/config.properties

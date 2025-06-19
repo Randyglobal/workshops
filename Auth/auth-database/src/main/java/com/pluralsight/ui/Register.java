@@ -2,6 +2,7 @@ package com.pluralsight.ui;
 
 import com.pluralsight.data.UserDAO;
 import com.pluralsight.model.UserAuth;
+import com.pluralsight.services.UserService;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.util.Scanner;
@@ -119,10 +120,10 @@ public class Register {
         displayEmptyBorderLine();
         displayBorderLine();
 
-        // Pass the HASHED password to UserAuth and UserDAO
         UserAuth newUser = new UserAuth(email, hashedPassword, firstName, lastName);
         UserDAO userDAO = new UserDAO(basicDataSource);
-        userDAO.createUser(newUser);
+        UserService userService = new UserService(userDAO);
+        userService.registerUser(newUser);
 
         displayBorderLine();
     }

@@ -79,7 +79,7 @@ public class Login {
             System.out.print(">>> ");
             email = scanner.nextLine();
 
-            if (email.contains("@") && email.contains(".")) { // Basic check, consider regex for robustness
+            if (email.contains("@") && email.contains(".")) {
                 isValidEmail = true;
             } else {
                 displayBorderLine();
@@ -92,14 +92,12 @@ public class Login {
         displayBorderLine();
         displayEmptyBorderLine();
         displayCenteredMessage("Enter Password:");
-        displayBorderLine(); // Just a visual separator before input
-        System.out.print(">>> "); // Prompt for input
+        displayBorderLine();         System.out.print(">>> ");
         password = scanner.nextLine();
 
 
         UserDAO userDAO = new UserDAO(basicDataSource);
-        // CRITICAL FIX: Capture the return value from userDAO.login!
-        UserAuth loggedInUser = userDAO.login(email, password); // This still passes plain text password (INSECURE)
+        UserAuth loggedInUser = userDAO.login(email, password);
 
         displayBorderLine();
         if (loggedInUser != null) {
@@ -116,6 +114,6 @@ public class Login {
         }
 
         // Always close the scanner if it was created within this method
-        scanner.close();
+//        scanner.close();
     }
 }
